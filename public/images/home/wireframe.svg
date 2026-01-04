@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1920" height="1080" fill="#121212"/>
+<path d="M0 0H1920V1080H0V0Z" fill="url(#paint0_linear_1_1)"/>
+<defs>
+<linearGradient id="paint0_linear_1_1" x1="960" y1="0" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1E293B"/>
+<stop offset="0.3" stop-color="#1E293B"/>
+<stop offset="0.5" stop-color="#1E293B"/>
+<stop offset="0.7" stop-color="#1E293B"/>
+<stop offset="0.9" stop-color="#1E293B"/>
+<stop offset="1" stop-color="#1E293B"/>
+</linearGradient>
+</defs>
+<g opacity="0.4">
+<rect x="100" y="150" width="300" height="150" rx="8" fill="#B45309" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="500" y="200" width="400" height="200" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="1000" y="100" width="200" height="300" rx="8" fill="#B45309" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="1300" y="250" width="350" height="175" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="200" y="500" width="350" height="175" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="600" y="600" width="300" height="150" rx="8" fill="#B45309" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="1100" y="550" width="400" height="200" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="100" y="800" width="200" height="100" rx="8" fill="#B45309" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="400" y="850" width="400" height="125" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="900" y="800" width="300" height="150" rx="8" fill="#B45309" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="1300" y="875" width="400" height="75" rx="8" fill="#C2410C" stroke="white" stroke-width="2" stroke-dasharray="5 5"/>
+</g>
+</svg>

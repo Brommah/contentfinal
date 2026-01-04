@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="paint0_linear" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+<stop stop-color="#BE185D"/>
+<stop offset="1" stop-color="#E11D48"/>
+</linearGradient>
+<filter id="blur" x="-100" y="-100" width="2120" height="1280" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="50" result="blur"/>
+</filter>
+</defs>
+<rect width="1920" height="1080" fill="#111827"/>
+<g filter="url(#blur)">
+<ellipse cx="960" cy="540" rx="600" ry="300" fill="url(#paint0_linear)" opacity="0.7"/>
+<path d="M1600 200C1700 300 1800 400 1920 540C1800 680 1700 780 1600 880C1500 980 1400 1080 1280 1080C1160 1080 1060 980 960 880C860 780 760 680 640 540C520 400 420 300 320 200C420 100 520 0 640 0C760 0 860 100 960 200C1060 300 1160 400 1280 540C1400 680 1500 780 1600 880" fill="url(#paint0_linear)" opacity="0.5"/>
+<ellipse cx="320" cy="880" rx="200" ry="100" fill="url(#paint0_linear)" opacity="0.6"/>
+<ellipse cx="1600" cy="200" rx="150" ry="75" fill="url(#paint0_linear)" opacity="0.6"/>
+</g>
+<circle cx="400" cy="200" r="10" fill="#E11D48" />
+<circle cx="1520" cy="880" r="8" fill="#BE185D" />
+<circle cx="1700" cy="600" r="12" fill="#E11D48" />
+<circle cx="220" cy="400" r="6" fill="#BE185D" />
+</svg>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1920" height="1080" fill="#121212"/>
+<defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" style="stop-color:#15803D;stop-opacity:0.8" />
+        <stop offset="100%" style="stop-color:#4D7C0F;stop-opacity:0.8" />
+    </linearGradient>
+</defs>
+
+    <g opacity="0.7">
+        <rect x="100" y="800" width="80" height="100" fill="url(#grad1)">
+             <animate attributeName="height" from="0" to="100" dur="2s" repeatCount="indefinite" />
+             <animate attributeName="y" from="900" to="800" dur="2s" repeatCount="indefinite" />
+        </rect>
+        <rect x="250" y="600" width="60" height="300" fill="url(#grad1)">
+             <animate attributeName="height" from="0" to="300" dur="1.7s" repeatCount="indefinite" begin="0.2s"/>
+             <animate attributeName="y" from="900" to="600" dur="1.7s" repeatCount="indefinite" begin="0.2s"/>
+        </rect>
+        <rect x="400" y="500" width="70" height="400" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="400" dur="2.3s" repeatCount="indefinite" begin="0.5s"/>
+             <animate attributeName="y" from="900" to="500" dur="2.3s" repeatCount="indefinite" begin="0.5s"/>
+        </rect>
+        <rect x="550" y="700" width="50" height="200" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="200" dur="1.5s" repeatCount="indefinite" begin="0.1s"/>
+            <animate attributeName="y" from="900" to="700" dur="1.5s" repeatCount="indefinite" begin="0.1s"/>
+        </rect>
+        <rect x="700" y="400" width="90" height="500" fill="url(#grad1)">
+             <animate attributeName="height" from="0" to="500" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+             <animate attributeName="y" from="900" to="400" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+        </rect>
+        <rect x="850" y="650" width="40" height="250" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="250" dur="1.9s" repeatCount="indefinite" begin="0.3s"/>
+            <animate attributeName="y" from="900" to="650" dur="1.9s" repeatCount="indefinite" begin="0.3s"/>
+        </rect>
+        <rect x="1000" y="550" width="85" height="350" fill="url(#grad1)">
+             <animate attributeName="height" from="0" to="350" dur="2.1s" repeatCount="indefinite" begin="0.6s"/>
+             <animate attributeName="y" from="900" to="550" dur="2.1s" repeatCount="indefinite" begin="0.6s"/>
+        </rect>
+         <rect x="1150" y="750" width="55" height="150" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="150" dur="1.6s" repeatCount="indefinite" begin="0.25s"/>
+            <animate attributeName="y" from="900" to="750" dur="1.6s" repeatCount="indefinite" begin="0.25s"/>
+        </rect>
+       <rect x="1300" y="450" width="95" height="450" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="450" dur="2.4s" repeatCount="indefinite" begin="0.7s"/>
+             <animate attributeName="y" from="900" to="450" dur="2.4s" repeatCount="indefinite" begin="0.7s"/>
+        </rect>
+         <rect x="1450" y="675" width="35" height="225" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="225" dur="1.8s" repeatCount="indefinite" begin="0.35s"/>
+            <animate attributeName="y" from="900" to="675" dur="1.8s" repeatCount="indefinite" begin="0.35s"/>
+        </rect>
+         <rect x="1600" y="525" width="75" height="375" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="375" dur="2.2s" repeatCount="indefinite" begin="0.55s"/>
+             <animate attributeName="y" from="900" to="525" dur="2.2s" repeatCount="indefinite" begin="0.55s"/>
+        </rect>
+        <rect x="1750" y="725" width="45" height="175" fill="url(#grad1)">
+            <animate attributeName="height" from="0" to="175" dur="1.75s" repeatCount="indefinite" begin="0.15s"/>
+             <animate attributeName="y" from="900" to="725" dur="1.75s" repeatCount="indefinite" begin="0.15s"/>
+        </rect>
+    </g>
+
+    <g opacity="0.6">
+      <text x="50" y="50" fill="#15803D" font-size="12" font-family="monospace">10101010101</text>
+      <text x="150" y="100" fill="#4D7C0F" font-size="14" font-family="monospace">01010101010</text>
+      <text x="250" y="150" fill="#15803D" font-size="10" font-family="monospace">10101010101</text>
+      <text x="350" y="200" fill="#4D7C0F" font-size="16" font-family="monospace">01010101010</text>
+      <text x="450" y="250" fill="#15803D" font-size="12" font-family="monospace">10101010101</text>
+      <text x="550" y="300" fill="#4D7C0F" font-size="14" font-family="monospace">01010101010</text>
+      <text x="650" y="350" fill="#15803D" font-size="10" font-family="monospace">10101010101</text>
+      <text x="750" y="400" fill="#4D7C0F" font-size="16" font-family="monospace">01010101010</text>
+      <text x="850" y="450" fill="#15803D" font-size="12" font-family="monospace">10101010101</text>
+      <text x="950" y="500" fill="#4D7C0F" font-size="14" font-family="monospace">01010101010</text>
+      <text x="1050" y="550" fill="#15803D" font-size="10" font-family="monospace">10101010101</text>
+      <text x="1150" y="600" fill="#4D7C0F" font-size="16" font-family="monospace">01010101010</text>
+      <text x="1250" y="650" fill="#15803D" font-size="12" font-family="monospace">10101010101</text>
+      <text x="1350" y="700" fill="#4D7C0F" font-size="14" font-family="monospace">01010101010</text>
+      <text x="1450" y="750" fill="#15803D" font-size="10" font-family="monospace">10101010101</text>
+      <text x="1550" y="800" fill="#4D7C0F" font-size="16" font-family="monospace">01010101010</text>
+      <text x="1650" y="850" fill="#15803D" font-size="12" font-family="monospace">10101010101</text>
+      <text x="1750" y="900" fill="#4D7C0F" font-size="14" font-family="monospace">01010101010</text>
+    </g>
+
+</svg>

@@ -2,26 +2,994 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Import React Flow styles */
+@import '@xyflow/react/dist/style.css';
+
+/* ============================================================================
+   TYPOGRAPHY - Using distinctive, readable fonts
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============================================================================
+   LIGHT THEME - Warm, high-contrast, WCAG AA compliant
+   ============================================================================ */
+:root, .light {
+  /* Base colors - warm cream tones for reduced eye strain */
+  --background: #fefdfb;
+  --background-alt: #f8f6f1;
+  --foreground: #1a1814;
+  --foreground-muted: #3d3833;
+  --surface: #ffffff;
+  --surface-hover: #faf8f5;
+  --surface-alt: #f5f3ee;
+  --surface-elevated: #ffffff;
+  
+  /* Borders - warm grays */
+  --border: #e0ddd6;
+  --border-strong: #c9c5bc;
+  --border-subtle: #edeae3;
+  
+  /* Text hierarchy - ALL with 4.5:1+ contrast ratio */
+  --text-primary: #1a1814;
+  --text-secondary: #44403c;   /* 8:1 contrast - very readable */
+  --text-tertiary: #5c5650;    /* 5.5:1 contrast - good for labels */
+  --text-muted: #736c65;       /* 4.5:1 contrast - minimum WCAG AA */
+  --text-inverse: #fefdfb;
+  
+  /* Accent colors - CERE (Vibrant Cyan) */
+  --cere-primary: #0891b2;
+  --cere-secondary: #e0f7fa;
+  --cere-border: #22d3ee;
+  --cere-text: #155e75;
+  
+  /* Accent colors - CEF (Rich Emerald) */
+  --cef-primary: #059669;
+  --cef-secondary: #d1fae5;
+  --cef-border: #34d399;
+  --cef-text: #065f46;
+  
+  /* Primary accent - Deep Indigo */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-muted: #eef2ff;
+  --accent-text: #3730a3;
+  
+  /* Status colors - vivid but balanced */
+  --status-live: #16a34a;
+  --status-live-bg: #dcfce7;
+  --status-vision: #9333ea;
+  --status-vision-bg: #f3e8ff;
+  --status-draft: #71717a;
+  --status-draft-bg: #f4f4f5;
+  --status-archived: #52525b;
+  --status-archived-bg: #e4e4e7;
+  --status-pending: #d97706;
+  --status-pending-bg: #fef3c7;
+  --status-approved: #0d9488;
+  --status-approved-bg: #ccfbf1;
+  --status-changes: #ea580c;
+  --status-changes-bg: #ffedd5;
+  
+  /* Block type colors */
+  --block-company: #2563eb;
+  --block-value-prop: #ca8a04;
+  --block-pain-point: #dc2626;
+  --block-solution: #16a34a;
+  --block-feature: #7c3aed;
+  --block-vertical: #db2777;
+  --block-article: #525252;
+  --block-tech: #0891b2;
+  
+  /* Shadows - soft and warm */
+  --shadow-sm: 0 1px 2px 0 rgb(28 25 23 / 0.03), 0 1px 3px 0 rgb(28 25 23 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(28 25 23 / 0.05), 0 2px 4px -2px rgb(28 25 23 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(28 25 23 / 0.08), 0 4px 6px -4px rgb(28 25 23 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(28 25 23 / 0.08), 0 8px 10px -6px rgb(28 25 23 / 0.05);
+  
+  /* Canvas */
+  --canvas-bg: #f5f3ee;
+  --canvas-grid: #e7e5e0;
+  --canvas-grid-strong: #d4d1c9;
+  
+  /* Interactive states */
+  --focus-ring: rgb(79 70 229 / 0.5);
+  --selection-bg: rgb(79 70 229 / 0.15);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================================
+   DARK THEME - Deep, rich, WCAG AA compliant
+   ============================================================================ */
+.dark {
+  /* Base colors - deep warm gray for depth */
+  --background: #0c0a09;
+  --background-alt: #1c1917;
+  --foreground: #fafaf9;
+  --foreground-muted: #e7e5e4;
+  --surface: #1c1917;
+  --surface-hover: #292524;
+  --surface-alt: #292524;
+  --surface-elevated: #2e2a27;
+  
+  /* Borders - visible but not harsh */
+  --border: #4a4540;
+  --border-strong: #5f5a54;
+  --border-subtle: #343230;
+  
+  /* Text hierarchy - ALL with 4.5:1+ contrast ratio against dark bg */
+  --text-primary: #fafaf9;
+  --text-secondary: #e7e5e4;   /* 15:1 contrast - excellent */
+  --text-tertiary: #c8c4c0;    /* 10:1 contrast - very readable */
+  --text-muted: #9f9a94;       /* 5.5:1 contrast - good for hints */
+  --text-inverse: #0c0a09;
+  
+  /* Accent colors - CERE (Glowing Cyan) */
+  --cere-primary: #22d3ee;
+  --cere-secondary: #164e63;
+  --cere-border: #0891b2;
+  --cere-text: #67e8f9;
+  
+  /* Accent colors - CEF (Vibrant Emerald) */
+  --cef-primary: #34d399;
+  --cef-secondary: #064e3b;
+  --cef-border: #059669;
+  --cef-text: #6ee7b7;
+  
+  /* Primary accent - Bright Indigo */
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-muted: #312e81;
+  --accent-text: #c7d2fe;
+  
+  /* Status colors - vibrant for visibility */
+  --status-live: #4ade80;
+  --status-live-bg: #14532d;
+  --status-vision: #c084fc;
+  --status-vision-bg: #581c87;
+  --status-draft: #a1a1aa;
+  --status-draft-bg: #3f3f46;
+  --status-archived: #71717a;
+  --status-archived-bg: #27272a;
+  --status-pending: #fbbf24;
+  --status-pending-bg: #713f12;
+  --status-approved: #2dd4bf;
+  --status-approved-bg: #134e4a;
+  --status-changes: #fb923c;
+  --status-changes-bg: #7c2d12;
+  
+  /* Block type colors - brighter for dark mode */
+  --block-company: #60a5fa;
+  --block-value-prop: #fbbf24;
+  --block-pain-point: #f87171;
+  --block-solution: #4ade80;
+  --block-feature: #a78bfa;
+  --block-vertical: #f472b6;
+  --block-article: #a1a1aa;
+  --block-tech: #22d3ee;
+  
+  /* Shadows - subtle glows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+  
+  /* Canvas */
+  --canvas-bg: #1c1917;
+  --canvas-grid: #292524;
+  --canvas-grid-strong: #44403c;
+  
+  /* Interactive states */
+  --focus-ring: rgb(129 140 248 / 0.5);
+  --selection-bg: rgb(129 140 248 / 0.25);
+}
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text-primary);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
 }
 
+/* Headings use slightly tighter tracking */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+/* Code uses JetBrains Mono */
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* ============================================================================
+   SCROLLBAR STYLES
+   ============================================================================ */
+
+/* Light mode scrollbar */
+.light ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: var(--surface-alt);
+  border-radius: 5px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 5px;
+  border: 2px solid var(--surface-alt);
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+  border: 2px solid var(--surface);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* ============================================================================
+   REACT FLOW CUSTOMIZATIONS
+   ============================================================================ */
+.react-flow {
+  background-color: var(--canvas-bg) !important;
+}
+
+/* Force dark canvas background in dark mode */
+.dark .react-flow,
+.dark .react-flow__viewport,
+.dark .react-flow__container,
+.dark .react-flow__renderer,
+.dark .react-flow__pane {
+  background-color: #1c1917 !important;
+}
+
+/* Force light canvas background in light mode */
+.light .react-flow,
+.light .react-flow__viewport,
+.light .react-flow__container,
+.light .react-flow__renderer,
+.light .react-flow__pane,
+:root .react-flow,
+:root .react-flow__viewport,
+:root .react-flow__container,
+:root .react-flow__renderer,
+:root .react-flow__pane {
+  background-color: #f5f3ee !important;
+}
+
+/* Override for dark mode to ensure dark background */
+.dark .react-flow,
+.dark .react-flow__viewport,
+.dark .react-flow__container,
+.dark .react-flow__renderer,
+.dark .react-flow__pane {
+  background-color: #1c1917 !important;
+}
+
+/* Force dark node backgrounds in dark mode */
+.dark .react-flow__node,
+.dark .content-block {
+  background-color: #1c1917 !important;
+  color: #fafaf9 !important;
+}
+
+/* Light mode nodes */
+.light .react-flow__node,
+.light .content-block,
+:root .react-flow__node,
+:root .content-block {
+  background-color: #ffffff !important;
+  color: #1a1814 !important;
+}
+
+/* Dark mode override */
+.dark .react-flow__node,
+.dark .content-block {
+  background-color: #1c1917 !important;
+  color: #fafaf9 !important;
+}
+
+.react-flow__background pattern line {
+  stroke: var(--canvas-grid) !important;
+}
+
+.react-flow__background pattern line:nth-child(5n) {
+  stroke: var(--canvas-grid-strong) !important;
+}
+
+.react-flow__minimap {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.react-flow__controls {
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.react-flow__controls-button {
+  background-color: var(--surface) !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text-primary) !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: var(--surface-hover) !important;
+}
+
+.react-flow__controls-button svg {
+  max-width: 14px;
+  max-height: 14px;
+}
+
+/* ============================================================================
+   CONTENT BLOCK STYLES
+   ============================================================================ */
+.content-block {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: grab;
+}
+
+.content-block:active {
+  cursor: grabbing;
+}
+
+.content-block:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.content-block.selected {
+  box-shadow: 0 0 0 3px var(--accent), var(--shadow-xl);
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+@keyframes pulse-live {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.status-badge-live {
+  animation: pulse-live 2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+
+/* ============================================================================
+   CONNECTION EDGE LABELS
+   ============================================================================ */
+.react-flow__edge-text {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* ============================================================================
+   SIDEBAR TRANSITIONS
+   ============================================================================ */
+.sidebar-enter {
+  transform: translateX(100%);
+}
+
+.sidebar-enter-active {
+  transform: translateX(0);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-exit {
+  transform: translateX(0);
+}
+
+.sidebar-exit-active {
+  transform: translateX(100%);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   FOCUS STYLES
+   ============================================================================ */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* ============================================================================
+   FILTER BAR STYLES
+   ============================================================================ */
+.filter-chip {
+  @apply inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all duration-200;
+}
+
+.filter-chip-inactive {
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700;
+}
+
+.filter-chip-active {
+  @apply bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/30;
+}
+
+.filter-dropdown {
+  @apply absolute top-full left-0 mt-2 w-60 rounded-2xl border shadow-xl z-50 overflow-hidden;
+  @apply bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700;
+}
+
+.filter-dropdown-item {
+  @apply flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors;
+  @apply text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800;
+}
+
+.filter-dropdown-item-active {
+  @apply bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300;
+}
+
+/* ============================================================================
+   SELECTION STYLES
+   ============================================================================ */
+::selection {
+  background: var(--selection-bg);
+  color: inherit;
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .dark .glass {
+    background: rgba(28, 25, 23, 0.85);
+  }
+  
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .dark .glass-subtle {
+    background: rgba(28, 25, 23, 0.6);
+  }
+  
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--cere-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Improved contrast utilities */
+  .high-contrast {
+    color: var(--text-primary);
+  }
+  
+  .medium-contrast {
+    color: var(--text-secondary);
+  }
+  
+  .low-contrast {
+    color: var(--text-tertiary);
+  }
+}
+
+/* ============================================================================
+   COMPONENT-SPECIFIC OVERRIDES FOR READABILITY
+   ============================================================================ */
+
+/* Ensure all text in cards has good contrast */
+.light [class*="bg-slate-900"],
+.light [class*="bg-gray-900"] {
+  background-color: var(--surface) !important;
+  color: var(--text-primary) !important;
+}
+
+.light [class*="bg-slate-800"],
+.light [class*="bg-gray-800"] {
+  background-color: var(--surface-alt) !important;
+}
+
+.light [class*="border-slate-800"],
+.light [class*="border-gray-800"] {
+  border-color: var(--border) !important;
+}
+
+.light [class*="border-slate-700"],
+.light [class*="border-gray-700"] {
+  border-color: var(--border-strong) !important;
+}
+
+/* ============================================================================
+   TEXT CONTRAST FIXES - Ensuring all text meets WCAG AA (4.5:1)
+   ============================================================================ */
+
+/* LIGHT MODE - Force minimum contrast on all gray text */
+  .light .text-white {
+  color: var(--text-primary) !important;
+}
+
+.light .text-gray-100,
+.light .text-slate-100 {
+  color: var(--text-primary) !important;
+}
+
+.light .text-gray-200,
+.light .text-slate-200 {
+  color: var(--text-secondary) !important;
+}
+
+.light .text-gray-300,
+.light .text-slate-300 {
+  color: var(--text-secondary) !important;
+}
+
+.light .text-gray-400,
+.light .text-slate-400 {
+  color: var(--text-tertiary) !important;
+}
+
+.light .text-gray-500,
+  .light .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+
+.light .text-gray-600,
+.light .text-slate-600 {
+  color: var(--text-muted) !important;
+}
+
+/* DARK MODE - Boost all gray text for visibility */
+.dark .text-gray-300,
+.dark .text-slate-300 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .text-gray-400,
+.dark .text-slate-400 {
+  color: var(--text-tertiary) !important;
+}
+
+.dark .text-gray-500,
+.dark .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+
+.dark .text-gray-600,
+.dark .text-slate-600 {
+  color: var(--text-muted) !important;
+}
+
+/* Placeholder text */
+.light ::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.dark ::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* ============================================================================
+   SPECIFIC COMPONENT CONTRAST FIXES
+   ============================================================================ */
+
+/* Sidebar descriptions and hints */
+.light aside p,
+.light aside span:not([class*="font-"]):not([class*="text-"]) {
+  color: var(--text-secondary);
+}
+
+.dark aside p,
+.dark aside span:not([class*="font-"]):not([class*="text-"]) {
+  color: var(--text-secondary);
+}
+
+/* Card subtitles and descriptions */
+.light [class*="Card"] p,
+.light .card p {
+  color: var(--text-secondary);
+}
+
+.dark [class*="Card"] p,
+.dark .card p {
+  color: var(--text-secondary);
+}
+
+/* Roadmap item dates and dependencies */
+.light [class*="Target"],
+.light [class*="Depends"] {
+  color: var(--text-tertiary) !important;
+}
+
+.dark [class*="Target"],
+.dark [class*="Depends"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Form labels and hints */
+label {
+  color: var(--text-secondary);
+}
+
+/* Status text in small print */
+small {
+  color: var(--text-tertiary);
+}
+
+/* Muted text utility that actually works */
+.text-muted-contrast {
+  color: var(--text-muted) !important;
+}
+
+/* Secondary text utility that actually works */
+.text-secondary-contrast {
+  color: var(--text-secondary) !important;
+}
+
+/* Tertiary text utility that actually works */
+.text-tertiary-contrast {
+  color: var(--text-tertiary) !important;
+}
+
+/* ============================================================================
+   AGGRESSIVE TEXT CONTRAST FIXES FOR SPECIFIC PROBLEM AREAS
+   ============================================================================ */
+
+/* Fix description text everywhere - these are typically too faded */
+.dark p.text-gray-400,
+.dark p.text-gray-500,
+.dark p.text-slate-400,
+.dark p.text-slate-500,
+.dark span.text-gray-400,
+.dark span.text-gray-500,
+.dark span.text-slate-400,
+.dark span.text-slate-500 {
+  color: var(--text-tertiary) !important;
+}
+
+/* Fix "Links to:", "Depends on", "Target:", type labels */
+.dark [class*="text-xs"][class*="text-gray"],
+.dark [class*="text-sm"][class*="text-gray"] {
+  color: var(--text-tertiary) !important;
+}
+
+.light [class*="text-xs"][class*="text-gray"],
+.light [class*="text-sm"][class*="text-gray"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Fix roadmap column descriptions */
+.dark [class*="Roadmap"] p,
+.dark [class*="roadmap"] p,
+.dark [class*="kanban"] p {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix analytics dashboard text */
+.dark [class*="Dashboard"] span[class*="text-gray"],
+.dark [class*="Analytics"] span[class*="text-gray"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Fix sidebar palette descriptions */
+.dark aside [class*="text-gray-400"],
+.dark aside [class*="text-gray-500"] {
+  color: var(--text-muted) !important;
+}
+
+.light aside [class*="text-gray-400"],
+.light aside [class*="text-gray-500"] {
+  color: var(--text-muted) !important;
+}
+
+/* Fix all small muted text */
+.dark .text-xs,
+.dark small {
+  color: var(--text-tertiary);
+}
+
+.light .text-xs,
+.light small {
+  color: var(--text-tertiary);
+}
+
+/* Fix block palette "Drag or click to add" text */
+.dark [draggable="true"] span:last-child,
+.dark [draggable="true"] p:last-child {
+  color: var(--text-secondary) !important;
+}
+
+.light [draggable="true"] span:last-child,
+.light [draggable="true"] p:last-child {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix drop zone placeholder text */
+.dark [class*="drop"],
+.dark [class*="Drop"] {
+  color: var(--text-tertiary);
+}
+
+/* Fix all "no items" empty state messages */
+.dark [class*="empty"],
+.dark [class*="Empty"],
+.dark [class*="no-items"],
+.dark [class*="placeholder"] {
+  color: var(--text-tertiary) !important;
+}
+
+.light [class*="empty"],
+.light [class*="Empty"],
+.light [class*="no-items"],
+.light [class*="placeholder"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Fix "Synced with" labels in CEO dashboard */
+.dark [class*="sync"],
+.dark [class*="Sync"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Fix timestamp and date display */
+.dark time,
+.dark [class*="date"],
+.dark [class*="Date"],
+.dark [class*="time"],
+.dark [class*="Time"] {
+  color: var(--text-tertiary) !important;
+}
+
+.light time,
+.light [class*="date"],
+.light [class*="Date"],
+.light [class*="time"],
+.light [class*="Time"] {
+  color: var(--text-tertiary) !important;
+}
+
+/* Specific fix for wireframe preview descriptions */
+.dark .wireframe-preview p,
+.dark [class*="preview"] p:not(.text-white) {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix button labels in dropdowns */
+.dark button span.text-gray-400,
+.dark button span.text-gray-500 {
+  color: var(--text-tertiary) !important;
+}
+
+.light button span.text-gray-400,
+.light button span.text-gray-500 {
+  color: var(--text-tertiary) !important;
+}
+
+/* ============================================================================
+   WIREFRAME SECTION STYLES
+   ============================================================================ */
+.wireframe-section {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.wireframe-section:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.wireframe-section.selected {
+  border-color: var(--accent);
+  border-style: solid;
+  box-shadow: 0 0 0 4px var(--accent-muted);
+}
+
+/* ============================================================================
+   BUTTON STYLES
+   ============================================================================ */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
+/* ============================================================================
+   INPUT STYLES
+   ============================================================================ */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-muted);
+  outline: none;
+}
+
+/* ============================================================================
+   CARD STYLES
+   ============================================================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.card-elevated {
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================================
+   TOOLTIP STYLES
+   ============================================================================ */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 0.375rem 0.75rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
 }

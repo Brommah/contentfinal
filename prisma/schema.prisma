@@ -1,0 +1,198 @@
+// Content Visualizer Schema for CERE/CEF
+// Visual content management system with multi-user collaboration
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// User & Authentication
+// ============================================
+
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  name          String?
+  avatar        String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Relations
+  workspaces    Workspace[]
+  comments      Comment[]
+}
+
+// ============================================
+// Workspace
+// ============================================
+
+model Workspace {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Canvas viewport state
+  viewportX   Float     @default(0)
+  viewportY   Float     @default(0)
+  viewportZoom Float    @default(1)
+  
+  // Relations
+  ownerId     String
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  blocks      Block[]
+  connections Connection[]
+  
+  @@index([ownerId])
+}
+
+// ============================================
+// Content Blocks
+// ============================================
+
+enum BlockType {
+  COMPANY          // Root container for CERE or CEF
+  PAGE_ROOT        // Root block for deeper pages (Quick Start, Developers, etc.)
+  CORE_VALUE_PROP  // 7-word descriptors, taglines
+  PAIN_POINT       // Problems being solved
+  SOLUTION         // How product solves pain points
+  FEATURE          // Specific capabilities
+  VERTICAL         // Gaming, Robotics, Developers
+  ARTICLE          // Linked content pieces
+  TECH_COMPONENT   // DDC, DAC, ZK, etc.
+}
+
+enum Company {
+  CERE
+  CEF
+  SHARED           // For content that applies to both
+}
+
+enum BlockStatus {
+  LIVE             // Currently in production/real
+  VISION           // Roadmap/planned
+  DRAFT            // Work in progress
+  ARCHIVED         // No longer active
+  PENDING_REVIEW   // Submitted for review
+  APPROVED         // Approved by reviewer
+  NEEDS_CHANGES    // Requires modifications
+}
+
+model Block {
+  id          String      @id @default(cuid())
+  type        BlockType
+  company     Company
+  status      BlockStatus @default(DRAFT)
+  
+  // Content
+  title       String
+  subtitle    String?
+  content     String?     @db.Text
+  tags        String[]    @default([])
+  
+  // Position on canvas
+  positionX   Float       @default(0)
+  positionY   Float       @default(0)
+  width       Float       @default(280)
+  height      Float       @default(120)
+  
+  // Metadata
+  externalUrl String?     // For articles/external links
+  order       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  workspaceId   String
+  workspace     Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  // Self-referential for parent/child blocks
+  parentId      String?
+  parent        Block?      @relation("BlockHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children      Block[]     @relation("BlockHierarchy")
+  
+  // Connections
+  connectionsFrom Connection[] @relation("ConnectionFrom")
+  connectionsTo   Connection[] @relation("ConnectionTo")
+  
+  // Comments
+  comments      Comment[]
+  
+  @@index([workspaceId])
+  @@index([type])
+  @@index([company])
+  @@index([parentId])
+}
+
+// ============================================
+// Connections (Relationships between blocks)
+// ============================================
+
+enum RelationshipType {
+  FLOWS_INTO       // Inheritance (Core VP → Vertical)
+  SOLVES           // Pain Point → Solution
+  DEPENDS_ON       // Infrastructure dependency
+  REFERENCES       // Article linkage
+  ENABLES          // Feature → Capability
+  PART_OF          // Component → Parent
+}
+
+model Connection {
+  id              String           @id @default(cuid())
+  relationshipType RelationshipType
+  label           String?
+  
+  // Visual properties
+  animated        Boolean          @default(false)
+  style           String?          // JSON for custom styling
+  
+  // Relations
+  fromBlockId     String
+  fromBlock       Block            @relation("ConnectionFrom", fields: [fromBlockId], references: [id], onDelete: Cascade)
+  toBlockId       String
+  toBlock         Block            @relation("ConnectionTo", fields: [toBlockId], references: [id], onDelete: Cascade)
+  
+  workspaceId     String
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  
+  @@unique([fromBlockId, toBlockId, relationshipType])
+  @@index([workspaceId])
+  @@index([fromBlockId])
+  @@index([toBlockId])
+}
+
+// ============================================
+// Comments for collaboration
+// ============================================
+
+model Comment {
+  id          String    @id @default(cuid())
+  content     String    @db.Text
+  resolved    Boolean   @default(false)
+  
+  // Position (for floating comments on canvas)
+  positionX   Float?
+  positionY   Float?
+  
+  // Relations
+  blockId     String
+  block       Block     @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@index([blockId])
+  @@index([authorId])
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gradient1" x1="0" y1="0" x2="1" y2="1" gradientUnits="userSpaceOnUse">
+<stop stop-color="#4C1D95"/>
+<stop offset="1" stop-color="#5B21B6"/>
+</linearGradient>
+<linearGradient id="gradient2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFD700" stop-opacity="0.1"/>
+<stop offset="1" stop-color="#FFD700" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="gradient3" x1="1" y1="1" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFD700" stop-opacity="0.05"/>
+<stop offset="1" stop-color="#FFD700" stop-opacity="0"/>
+</linearGradient>
+
+</defs>
+
+<rect width="1920" height="1080" fill="url(#gradient1)"/>
+
+<path d="M0 0 L1920 0 L1920 1080 L0 1080 Z" fill="url(#gradient1)"/>
+
+<rect width="1920" height="10" fill="url(#gradient2)"/>
+<rect y="1070" width="1920" height="10" fill="url(#gradient2)"/>
+
+<rect width="10" height="1080" fill="url(#gradient3)"/>
+<rect x="1910" width="10" height="1080" fill="url(#gradient3)"/>
+
+<path d="M200 200 L400 250 L350 400 L150 350 Z" fill="rgba(255,215,0,0.02)" />
+<path d="M1520 880 L1720 930 L1670 1080 L1470 1030 Z" fill="rgba(255,215,0,0.02)" />
+
+<rect x="500" y="300" width="10" height="50" fill="rgba(255,215,0,0.03)" />
+<rect x="1400" y="700" width="10" height="50" fill="rgba(255,215,0,0.03)" />
+
+<rect x="800" y="500" width="50" height="10" fill="rgba(255,215,0,0.03)" />
+<rect x="1100" y="100" width="50" height="10" fill="rgba(255,215,0,0.03)" />
+
+<circle cx="300" cy="800" r="20" fill="rgba(255,215,0,0.01)" />
+<circle cx="1600" cy="200" r="20" fill="rgba(255,215,0,0.01)" />
+
+</svg>
