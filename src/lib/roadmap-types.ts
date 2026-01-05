@@ -24,10 +24,21 @@ export interface TeamMember {
 export interface Milestone {
   id: string;
   title: string;
-  date: Date;
+  description?: string;
+  date: Date; // Target delivery date
   icon: string;
   color: string;
+  linkedItemIds: string[]; // IDs of roadmap items that are part of this milestone
+  status?: "ON_TRACK" | "AT_RISK" | "DELAYED" | "COMPLETED";
 }
+
+// Milestone status configs
+export const MILESTONE_STATUS_CONFIGS = {
+  ON_TRACK: { label: "On Track", color: "#22c55e", icon: "✅" },
+  AT_RISK: { label: "At Risk", color: "#f59e0b", icon: "⚠️" },
+  DELAYED: { label: "Delayed", color: "#ef4444", icon: "🔴" },
+  COMPLETED: { label: "Completed", color: "#3b82f6", icon: "🎉" },
+};
 
 // Default team members for demo
 export const DEFAULT_TEAM: TeamMember[] = [
@@ -165,6 +176,49 @@ export function getDefaultPhases(): RoadmapPhase[] {
       endDate: monthFromNow(12),
       color: PHASE_CONFIGS.OPTIMIZE.color,
       order: 3,
+    },
+  ];
+}
+
+// Default milestones for demo
+export function getDefaultMilestones(): Milestone[] {
+  const now = new Date();
+  const daysFromNow = (days: number) => {
+    const d = new Date(now);
+    d.setDate(d.getDate() + days);
+    return d;
+  };
+
+  return [
+    {
+      id: "ms-website-launch",
+      title: "Website Launch",
+      description: "Complete website content overhaul and go live with new messaging",
+      date: daysFromNow(30),
+      icon: "🚀",
+      color: "#3b82f6",
+      linkedItemIds: ["ri-cere-website", "ri-cere-messaging"],
+      status: "ON_TRACK",
+    },
+    {
+      id: "ms-product-release",
+      title: "Product Release v2.0",
+      description: "Major product release with enterprise features",
+      date: daysFromNow(90),
+      icon: "📦",
+      color: "#22c55e",
+      linkedItemIds: ["ri-cef-casestudies", "ri-cef-whitepaper"],
+      status: "ON_TRACK",
+    },
+    {
+      id: "ms-q2-content",
+      title: "Q2 Content Goals",
+      description: "Complete all Q2 content deliverables",
+      date: daysFromNow(60),
+      icon: "🎯",
+      color: "#f59e0b",
+      linkedItemIds: ["ri-cere-technical", "ri-cere-blog"],
+      status: "AT_RISK",
     },
   ];
 }

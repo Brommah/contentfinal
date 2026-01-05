@@ -24,32 +24,20 @@ export default function RoadmapDesigner() {
     initRoadmap,
     roadmapPhases,
     roadmapItems,
+    milestones,
     selectedRoadmapItemId,
     selectRoadmapItem,
     updateRoadmapItemStatus,
     updateRoadmapItem,
+    addMilestone,
+    updateMilestone,
+    removeMilestone,
   } = useCanvasStore();
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [filterCompany, setFilterCompany] = useState<"ALL" | "CERE" | "CEF">("ALL");
   const [viewMode, setViewMode] = useState<ViewMode>("gantt");
   const [showMilestones, setShowMilestones] = useState(false);
-  const [milestones, setMilestones] = useState<Milestone[]>([
-    {
-      id: "ms-1",
-      title: "Website Launch",
-      date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      icon: "🚀",
-      color: "#3b82f6",
-    },
-    {
-      id: "ms-2",
-      title: "Product Release",
-      date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-      icon: "📦",
-      color: "#22c55e",
-    },
-  ]);
   const [filterAssignees, setFilterAssignees] = useState<string[]>([]);
 
   // Initialize roadmap on mount
@@ -86,15 +74,18 @@ export default function RoadmapDesigner() {
   };
 
   const handleAddMilestone = (milestone: Milestone) => {
-    setMilestones((prev) => [...prev, milestone]);
+    addMilestone({
+      ...milestone,
+      linkedItemIds: milestone.linkedItemIds || [],
+    });
   };
 
   const handleRemoveMilestone = (id: string) => {
-    setMilestones((prev) => prev.filter((m) => m.id !== id));
+    removeMilestone(id);
   };
 
   const handleUpdateMilestone = (id: string, updates: Partial<Milestone>) => {
-    setMilestones((prev) => prev.map((m) => (m.id === id ? { ...m, ...updates } : m)));
+    updateMilestone(id, updates);
   };
 
   return (

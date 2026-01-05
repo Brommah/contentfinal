@@ -24,8 +24,8 @@ import type {
 import { canTransitionTo, getAvailableTransitions } from "./types";
 import type { WireframeSection, SectionType, SectionConfig } from "./wireframe-types";
 import { DEFAULT_SECTION_CONFIGS, getDefaultWireframe, getWireframeForPage, isDeeperPage, getPageRootBlockId } from "./wireframe-types";
-import type { RoadmapPhase, RoadmapItem, RoadmapStatus } from "./roadmap-types";
-import { getDefaultPhases, getSampleRoadmapItems } from "./roadmap-types";
+import type { RoadmapPhase, RoadmapItem, RoadmapStatus, Milestone } from "./roadmap-types";
+import { getDefaultPhases, getSampleRoadmapItems, getDefaultMilestones } from "./roadmap-types";
 import { nanoid } from "nanoid";
 
 // ============ LINKED BLOCKS STATUS (for roadmap sync) ============
@@ -164,7 +164,9 @@ interface CanvasState {
   // Roadmap state
   roadmapPhases: RoadmapPhase[];
   roadmapItems: RoadmapItem[];
+  milestones: Milestone[];
   selectedRoadmapItemId: string | null;
+  selectedMilestoneId: string | null;
 
   // Block comments for review
   blockComments: Record<string, Array<{
@@ -196,6 +198,15 @@ interface CanvasState {
   selectRoadmapItem: (id: string | null) => void;
   addRoadmapPhase: (phase: Omit<RoadmapPhase, "id">) => RoadmapPhase;
   updateRoadmapPhase: (id: string, updates: Partial<RoadmapPhase>) => void;
+  
+  // Milestone actions
+  addMilestone: (milestone: Omit<Milestone, "id">) => Milestone;
+  updateMilestone: (id: string, updates: Partial<Milestone>) => void;
+  removeMilestone: (id: string) => void;
+  selectMilestone: (id: string | null) => void;
+  linkItemToMilestone: (milestoneId: string, itemId: string) => void;
+  unlinkItemFromMilestone: (milestoneId: string, itemId: string) => void;
+  getMilestoneProgress: (milestoneId: string) => { total: number; completed: number; percentage: number };
 
   // CEO Dashboard state
   suggestions: ContentSuggestion[];
@@ -919,7 +930,9 @@ export const useCanvasStore = create<CanvasState>()(
       // Roadmap state
       roadmapPhases: [],
       roadmapItems: [],
+      milestones: [],
       selectedRoadmapItemId: null,
+      selectedMilestoneId: null,
 
       // Block comments state
       blockComments: {},
@@ -951,8 +964,9 @@ export const useCanvasStore = create<CanvasState>()(
 
         const phases = getDefaultPhases();
         const items = getSampleRoadmapItems();
+        const milestones = getDefaultMilestones();
 
-        set({ roadmapPhases: phases, roadmapItems: items });
+        set({ roadmapPhases: phases, roadmapItems: items, milestones });
       },
 
       addRoadmapItem: (itemData) => {
@@ -1030,6 +1044,90 @@ export const useCanvasStore = create<CanvasState>()(
             phase.id === id ? { ...phase, ...updates } : phase
           ),
         }));
+      },
+
+      // Milestone actions
+      addMilestone: (milestoneData) => {
+        const newMilestone: Milestone = {
+          ...milestoneData,
+          id: `ms-${nanoid(8)}`,
+          linkedItemIds: milestoneData.linkedItemIds || [],
+        };
+        set((state) => ({
+          milestones: [...state.milestones, newMilestone],
+        }));
+        return newMilestone;
+      },
+
+      updateMilestone: (id, updates) => {
+        set((state) => ({
+          milestones: state.milestones.map((milestone) =>
+            milestone.id === id ? { ...milestone, ...updates } : milestone
+          ),
+        }));
+      },
+
+      removeMilestone: (id) => {
+        set((state) => ({
+          milestones: state.milestones.filter((m) => m.id !== id),
+          selectedMilestoneId: state.selectedMilestoneId === id ? null : state.selectedMilestoneId,
+        }));
+      },
+
+      selectMilestone: (id) => {
+        set({ selectedMilestoneId: id });
+      },
+
+      linkItemToMilestone: (milestoneId, itemId) => {
+        set((state) => ({
+          milestones: state.milestones.map((m) =>
+            m.id === milestoneId && !m.linkedItemIds.includes(itemId)
+              ? { ...m, linkedItemIds: [...m.linkedItemIds, itemId] }
+              : m
+          ),
+          // Also update the item's milestoneId reference
+          roadmapItems: state.roadmapItems.map((item) =>
+            item.id === itemId ? { ...item, milestoneId } : item
+          ),
+        }));
+      },
+
+      unlinkItemFromMilestone: (milestoneId, itemId) => {
+        set((state) => ({
+          milestones: state.milestones.map((m) =>
+            m.id === milestoneId
+              ? { ...m, linkedItemIds: m.linkedItemIds.filter((id) => id !== itemId) }
+              : m
+          ),
+          // Also clear the item's milestoneId reference
+          roadmapItems: state.roadmapItems.map((item) =>
+            item.id === itemId && item.milestoneId === milestoneId
+              ? { ...item, milestoneId: undefined }
+              : item
+          ),
+        }));
+      },
+
+      getMilestoneProgress: (milestoneId) => {
+        const { milestones, roadmapItems } = get();
+        const milestone = milestones.find((m) => m.id === milestoneId);
+        
+        if (!milestone || milestone.linkedItemIds.length === 0) {
+          return { total: 0, completed: 0, percentage: 0 };
+        }
+
+        const linkedItems = roadmapItems.filter((item) =>
+          milestone.linkedItemIds.includes(item.id)
+        );
+        const completedItems = linkedItems.filter(
+          (item) => item.status === "PUBLISHED"
+        );
+
+        return {
+          total: linkedItems.length,
+          completed: completedItems.length,
+          percentage: Math.round((completedItems.length / linkedItems.length) * 100),
+        };
       },
 
       // CEO Dashboard state
