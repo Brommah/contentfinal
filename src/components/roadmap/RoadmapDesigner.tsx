@@ -29,9 +29,6 @@ export default function RoadmapDesigner() {
     selectRoadmapItem,
     updateRoadmapItemStatus,
     updateRoadmapItem,
-    addMilestone,
-    updateMilestone,
-    removeMilestone,
   } = useCanvasStore();
 
   const [showAddModal, setShowAddModal] = useState(false);
@@ -73,20 +70,6 @@ export default function RoadmapDesigner() {
     updateRoadmapItem(itemId, { targetDate: newDate, endDate: newEndDate });
   };
 
-  const handleAddMilestone = (milestone: Milestone) => {
-    addMilestone({
-      ...milestone,
-      linkedItemIds: milestone.linkedItemIds || [],
-    });
-  };
-
-  const handleRemoveMilestone = (id: string) => {
-    removeMilestone(id);
-  };
-
-  const handleUpdateMilestone = (id: string, updates: Partial<Milestone>) => {
-    updateMilestone(id, updates);
-  };
 
   return (
     <div className="h-full flex overflow-hidden bg-gray-50 dark:bg-gray-950">
@@ -205,18 +188,13 @@ export default function RoadmapDesigner() {
           {showMilestones && (
             <ResizableSidebar
               position="left"
-              defaultWidth={280}
-              minWidth={220}
-              maxWidth={400}
+              defaultWidth={320}
+              minWidth={280}
+              maxWidth={450}
               storageKey="roadmap-milestones-sidebar"
-              className="p-4 border-r border-gray-200 dark:border-gray-800 overflow-y-auto bg-white dark:bg-gray-900"
+              className="border-r border-gray-200 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900 z-20"
             >
-              <MilestoneEditor
-                milestones={milestones}
-                onAdd={handleAddMilestone}
-                onRemove={handleRemoveMilestone}
-                onUpdate={handleUpdateMilestone}
-              />
+              <MilestoneEditor />
             </ResizableSidebar>
           )}
 

@@ -336,11 +336,11 @@ export default function GanttView({
         {/* Milestones row */}
         {milestones.length > 0 && (
           <div className="flex border-b border-slate-700 bg-slate-850">
-            <div className="w-56 flex-shrink-0 px-4 py-2 border-r border-slate-700 flex items-center gap-2 sticky left-0 z-10 bg-slate-800">
+            <div className="w-56 flex-shrink-0 px-4 py-2 border-r border-slate-700 flex items-center gap-2 sticky left-0 z-20 bg-slate-800">
               <span className="text-amber-400">📌</span>
               <span className="text-sm font-medium text-slate-300">Milestones</span>
             </div>
-            <div className="relative flex-1 h-12 bg-slate-900/50" style={{ width: totalWidth }}>
+            <div className="relative flex-1 h-12 bg-slate-900/50 overflow-visible" style={{ width: totalWidth }}>
               {/* Today line extending through */}
               <div className="absolute top-0 h-full w-0.5 bg-red-500/30" style={{ left: todayPosition }} />
 
@@ -349,7 +349,7 @@ export default function GanttView({
                 return (
                   <div
                     key={milestone.id}
-                    className="absolute top-1/2 -translate-y-1/2 z-10 group"
+                    className="absolute top-1/2 -translate-y-1/2 z-[5] group"
                     style={{ left: pos }}
                   >
                     {/* Diamond marker */}
@@ -357,9 +357,9 @@ export default function GanttView({
                       className="w-6 h-6 rotate-45 rounded-sm shadow-lg cursor-pointer transition-transform group-hover:scale-125"
                       style={{ backgroundColor: milestone.color }}
                     />
-                    {/* Label */}
+                    {/* Label - appears on hover, positioned to the right */}
                     <div
-                      className="absolute left-8 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                      className="absolute left-8 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-xs font-medium text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-30 pointer-events-none"
                       style={{ backgroundColor: milestone.color }}
                     >
                       {milestone.icon} {milestone.title}
@@ -384,7 +384,7 @@ export default function GanttView({
                 className="flex cursor-pointer hover:bg-slate-800/50 transition-colors"
                 onClick={() => togglePhase(phase.id)}
               >
-                <div className="w-56 flex-shrink-0 px-4 py-2.5 border-r border-slate-700 flex items-center gap-3 sticky left-0 z-10 bg-slate-900">
+                <div className="w-56 flex-shrink-0 px-4 py-2.5 border-r border-slate-700 flex items-center gap-3 sticky left-0 z-20 bg-slate-900">
                   <button className="text-slate-400 hover:text-white transition-colors">
                     <svg
                       className={`w-4 h-4 transition-transform ${isCollapsed ? "" : "rotate-90"}`}
@@ -425,7 +425,7 @@ export default function GanttView({
                 <div className="bg-slate-900/30">
                   {phaseItems.length === 0 ? (
                     <div className="flex">
-                      <div className="w-56 flex-shrink-0 px-4 py-3 border-r border-slate-700 text-slate-500 text-xs italic sticky left-0 z-10 bg-slate-900/30">
+                      <div className="w-56 flex-shrink-0 px-4 py-3 border-r border-slate-700 text-slate-500 text-xs italic sticky left-0 z-20 bg-slate-900/30">
                         No items
                       </div>
                       <div className="relative flex-1 h-10" style={{ width: totalWidth }}>
@@ -447,7 +447,7 @@ export default function GanttView({
                       return (
                         <div key={item.id} className="flex group">
                           {/* Item label */}
-                          <div className="w-56 flex-shrink-0 px-4 py-2 border-r border-slate-700/50 flex items-center gap-2 sticky left-0 z-10 bg-slate-900/95">
+                          <div className="w-56 flex-shrink-0 px-4 py-2 border-r border-slate-700/50 flex items-center gap-2 sticky left-0 z-20 bg-slate-900/95">
                             <span
                               className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                               style={{ backgroundColor: companyColor.primary }}
