@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 import type { BlockType, Company, BlockStatus } from "@/lib/types";
 import { getPageById } from "@/lib/wireframe-types";
 
-const GEMINI_API_KEY = "AIzaSyD3Ffiue5HXn1Hw9IITrPRX-Q6yKNlMF1o";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 // Request validation schema

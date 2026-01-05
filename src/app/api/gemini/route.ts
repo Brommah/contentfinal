@@ -4,12 +4,24 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-const GEMINI_API_KEY = "AIzaSyD3Ffiue5HXn1Hw9IITrPRX-Q6yKNlMF1o";
 // Use gemini-2.0-flash which is the latest available model
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
+function getGeminiApiKey(): string | null {
+  return process.env.GEMINI_API_KEY || null;
+}
+
 export async function POST(request: NextRequest) {
   try {
+    const geminiApiKey = getGeminiApiKey();
+    
+    if (!geminiApiKey) {
+      return NextResponse.json(
+        { error: "Gemini API not configured. Set GEMINI_API_KEY environment variable." },
+        { status: 503 }
+      );
+    }
+
     const { prompt, context, blockTitle, blockContent, blockType } = await request.json();
 
     if (!prompt) {
@@ -50,7 +62,7 @@ Respond ONLY with a valid JSON object in this exact format:
 
 Do not include any text before or after the JSON. Only output the JSON object.`;
 
-    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(`${GEMINI_API_URL}?key=${geminiApiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

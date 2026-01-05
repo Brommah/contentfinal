@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-const GEMINI_API_KEY = "AIzaSyD3Ffiue5HXn1Hw9IITrPRX-Q6yKNlMF1o";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Gemini 3 Pro Image Preview - for image generation
 const GEMINI_IMAGE_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";

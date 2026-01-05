@@ -10,6 +10,7 @@ Welcome to the Content Visualizer documentation. This guide covers everything yo
 | [02. System Explainer](./02-system-explainer.md) | Architecture and core concepts |
 | [03. Content Flow](./03-content-flow.md) | How content flows to websites |
 | [04. Notion Integration](./04-notion-integration.md) | Connecting with Notion |
+| [**05. Wiki AI System**](./05-wiki-ai-system.md) | **The intelligent core—context-aware AI generation** |
 
 ## What is Content Visualizer?
 

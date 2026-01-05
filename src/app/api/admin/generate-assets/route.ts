@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 import fs from 'fs';
 import path from 'path';
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyD3Ffiue5HXn1Hw9IITrPRX-Q6yKNlMF1o";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const MODEL = "gemini-3-pro-image-preview"; // Nano Banana Pro
 
 // Refined prompts: Softer aesthetic but MORE LITERAL representation of the subject
