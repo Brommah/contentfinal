@@ -17,7 +17,16 @@ export const editorTour: TourDefinition = {
       title: "Building Blocks Editor",
       content:
         "This is your focused content editing workspace. Unlike the visual Architecture view, this provides a list-based approach with powerful filtering and a rich text editor.",
-      position: "top",
+      position: "bottom",
+      spotlight: false,
+    },
+    {
+      id: "wiki-ai-first",
+      target: "[data-tour='wiki-ai-button']",
+      title: "Wiki AI Panel",
+      content:
+        "The Wiki AI panel is expanded by default. It provides context from your wiki and uses AI to suggest improvements for your content. This is the most powerful feature for content creation!",
+      position: "left",
       spotlight: true,
     },
     {
@@ -40,65 +49,47 @@ export const editorTour: TourDefinition = {
     },
     {
       id: "editor-content",
-      target: "[data-tour='editor-main']",
-      title: "Rich Content Editor",
+      target: "[data-tour='editor-content']",
+      title: "Content Editor",
       content:
-        "The main panel provides a full-featured content editor. Write and format your content with headings, bold, italic, lists, links, and more. Changes sync automatically with the Architecture view.",
-      position: "top",
+        "Select a block from the list to open it here. You can edit the title, subtitle, content, and all metadata. Changes sync automatically with the Architecture view.",
+      position: "left",
       spotlight: true,
     },
     {
       id: "editor-toolbar",
       target: "[data-tour='editor-toolbar']",
-      title: "Formatting Tools",
+      title: "Content Area",
       content:
-        "Format your content with the toolbar: headings (H1-H6), bold, italic, strikethrough, bullet lists, numbered lists, blockquotes, code blocks, and links. Markdown shortcuts work too!",
-      position: "bottom",
+        "Write your content here with full markdown support. The editor auto-expands as you type. All changes are auto-saved.",
+      position: "top",
       spotlight: true,
     },
     {
       id: "content-score",
       target: "[data-tour='content-score']",
-      title: "Content Quality Score",
+      title: "Content Metrics",
       content:
-        "This panel shows your content's readability score and quality rating. It analyzes word count, sentence length, and vocabulary. Aim for 60+ for clear, effective content.",
-      position: "left",
-      spotlight: true,
-    },
-    {
-      id: "connected-blocks",
-      target: "[data-tour='editor-main']",
-      title: "Connected Blocks",
-      content:
-        "Below the editor, you'll see blocks connected to the current one. Click any connected block to navigate to it. This helps you understand content relationships.",
+        "Track your word count and character count as you write. This helps you maintain consistent content length across blocks.",
       position: "top",
-      spotlight: false,
-    },
-    {
-      id: "wiki-ai",
-      target: "[data-tour='editor-main']",
-      title: "Wiki AI Panel",
-      content:
-        "Click the 'Wiki AI' button at the bottom right to open the AI assistance panel. It provides context from your wiki and suggests improvements to your content using AI.",
-      position: "left",
-      spotlight: false,
+      spotlight: true,
     },
     {
       id: "status-change",
       target: "[data-tour='editor-status']",
       title: "Status Management",
       content:
-        "Change the block's status here. When your content is ready, submit for review to send it to Fred in the CEO View. You can also set tags and update metadata.",
-      position: "left",
+        "Change the block's status here. Set to 'Pending Review' when ready for Fred's review in the CEO View. Other statuses include Draft, Live, Vision, and Archived.",
+      position: "bottom",
       spotlight: true,
     },
     {
       id: "save-indicator",
       target: "[data-tour='editor-save']",
-      title: "Auto-Save",
+      title: "Auto-Save Indicator",
       content:
-        "Your changes are saved automatically as you type. Look for the checkmark to confirm your latest edits are synced. No need to manually save!",
-      position: "bottom",
+        "Your changes are saved automatically as you type. The checkmark confirms your latest edits are synced. No need to manually save!",
+      position: "top",
       spotlight: true,
     },
   ],

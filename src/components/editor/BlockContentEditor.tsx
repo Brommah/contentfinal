@@ -84,9 +84,9 @@ export default function BlockContentEditor({
   const charCount = localContent.length;
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col overflow-hidden" data-tour="editor-content">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 border-b border-slate-800 bg-slate-900/50">
+      <div className="flex-shrink-0 p-6 border-b border-slate-800 bg-slate-900/50" data-tour="editor-header">
         <div className="flex items-start gap-4">
           {/* Block type icon */}
           <div
@@ -156,6 +156,7 @@ export default function BlockContentEditor({
               <select
                 value={block.status}
                 onChange={(e) => onUpdate({ status: e.target.value as BlockStatus })}
+                data-tour="editor-status"
                 className={`bg-slate-800 border rounded-lg px-3 py-1 text-xs text-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   block.status === "PENDING_REVIEW" ? "border-amber-500 bg-amber-500/10" :
                   block.status === "NEEDS_CHANGES" ? "border-red-500 bg-red-500/10" :
@@ -180,7 +181,7 @@ export default function BlockContentEditor({
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-3xl mx-auto p-6">
           {/* Main content editor */}
-          <div className="mb-8">
+          <div className="mb-8" data-tour="editor-toolbar">
             <label className="block text-sm font-medium text-slate-400 mb-2">
               Content
             </label>
@@ -192,7 +193,7 @@ export default function BlockContentEditor({
               placeholder="Write your content here... Supports markdown formatting."
               className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none min-h-[200px] font-mono text-sm leading-relaxed"
             />
-            <div className="flex justify-between mt-2 text-xs text-slate-500">
+            <div className="flex justify-between mt-2 text-xs text-slate-500" data-tour="content-score">
               <span>{wordCount} words • {charCount} characters</span>
               <span>Markdown supported</span>
             </div>
@@ -323,11 +324,12 @@ export default function BlockContentEditor({
       </div>
 
       {/* Footer */}
-      <div className="flex-shrink-0 px-6 py-3 border-t border-slate-800 bg-slate-900/50 flex items-center justify-between">
+      <div className="flex-shrink-0 px-6 py-3 border-t border-slate-800 bg-slate-900/50 flex items-center justify-between" data-tour="editor-save">
         <div className="text-xs text-slate-500">
           ID: <code className="text-slate-400">{block.id}</code>
         </div>
-        <div className="text-xs text-slate-500">
+        <div className="text-xs text-slate-500 flex items-center gap-2">
+          <span className="text-emerald-400">✓</span>
           Last updated: {new Date(block.updatedAt).toLocaleString()}
         </div>
       </div>

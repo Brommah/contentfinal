@@ -24,7 +24,7 @@ export default function ContentEditor() {
   const [filterStatus, setFilterStatus] = useState<BlockStatus | "ALL">("ALL");
   const [sortField, setSortField] = useState<SortField>("title");
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
-  const [wikiPanelOpen, setWikiPanelOpen] = useState(false);
+  const [wikiPanelOpen, setWikiPanelOpen] = useState(true); // Start with Wiki AI expanded
 
   // Get blocks from nodes
   const blocks = useMemo(() => {
@@ -264,6 +264,7 @@ export default function ContentEditor() {
         {/* Wiki Panel Toggle Button */}
         <button
           onClick={() => setWikiPanelOpen(!wikiPanelOpen)}
+          data-tour="wiki-ai-button"
           className={`absolute bottom-4 right-4 z-30 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 transition-all ${
             wikiPanelOpen 
               ? "bg-purple-600 text-white" 
