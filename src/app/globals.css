@@ -366,6 +366,23 @@ code, pre, .font-mono {
   max-height: 14px;
 }
 
+/* Hide the ugly selection box - we rely on individual node selection styling */
+.react-flow__selection,
+.react-flow__selectionpane,
+.react-flow__nodesselection,
+.react-flow__nodesselection-rect {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* If user prefers visible selection, make it subtle */
+.react-flow .react-flow__nodesselection-rect,
+.react-flow__selection {
+  background: transparent !important;
+  border: none !important;
+}
+
 /* ============================================================================
    CONTENT BLOCK STYLES
    ============================================================================ */
